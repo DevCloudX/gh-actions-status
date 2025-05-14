@@ -1,0 +1,34 @@
+name: Org GitHub Actions Usage Report
+
+on:
+  workflow_dispatch:
+
+jobs:
+  analyze-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          pip install PyGithub pyyaml matplotlib
+
+      - name: Run Org Actions Analyzer
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
+          ORG_NAME: your-org-name
+        run: python .github/scripts/org_action_usage_report.py
+
+      - name: Upload Charts
+        uses: actions/upload-artifact@v4
+        with:
+          name: gh-actions-usage-report
+          path: |
+            gh-actions-usage-bar.png
+            gh-actions-usage-pie.png
