@@ -22,8 +22,8 @@ jobs:
       - name: Run Org Actions Analyzer
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
-          ORG_NAME: your-org-name
-        run: python .github/scripts/org_action_usage_report.py
+          ORG_NAME: DevCloudX
+        run: python scripts/org_action_usage_report.py
 
       - name: Upload Charts
         uses: actions/upload-artifact@v4
