@@ -1,4 +1,4 @@
-name: Org GitHub Actions Usage Report
+name: Org GitHub Actions Usage Detail Report
 
 on:
   workflow_dispatch:
@@ -17,18 +17,16 @@ jobs:
 
       - name: Install Dependencies
         run: |
-          pip install PyGithub pyyaml matplotlib
+          pip install PyGithub pyyaml tabulate
 
-      - name: Run Org Actions Analyzer
+      - name: Run Detailed Actions Report
         env:
           GH_PAT: ${{ secrets.GH_PAT }}
-          ORG_NAME: DevCloudX
-        run: python scripts/org_action_usage_report.py
+          ORG_NAME: DevCloudX  # replace
+        run: python scripts/org_actions_detailed_report.py
 
-      - name: Upload Charts
+      - name: Upload Report
         uses: actions/upload-artifact@v4
         with:
-          name: gh-actions-usage-report
-          path: |
-            gh-actions-usage-bar.png
-            gh-actions-usage-pie.png
+          name: gh-actions-detailed-report
+          path: gh-actions-usage-summary.txt
